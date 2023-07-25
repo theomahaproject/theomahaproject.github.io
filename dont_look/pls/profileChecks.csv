@@ -1,0 +1,30 @@
+isBinaryCheck, sfObject, correctValue, issue, severity, description, notes, references
+yes,ManageUsers,false,can manage users,High,Allows the user full control over all users,TBC,TBC
+yes,ManageInternalUsers,false,can manage internal users,High,Allows the user full control over internal users,TBC,TBC
+yes,ManageProfilesPermissionsets,false,can modify profiles and permission sets,High,User can modify profiles and permission sets,TBC,TBC
+yes,AssignPermissionSets,false,can assign Permission Sets,High,This allows a user to assign Permission Sets,...TBC...,...TBC...
+yes,ManageCustomPermissions,false,can manage custom permissions,High,This allows a user to manage custom permissions,TBC,TBC
+yes,ManageRoles,false,can manager roles,High,This allows a user to manage roles,TBC,TBC
+yes,ManageIpAddresses,false,can manage IP Addresses within the environment,High,This allows a user to manage IP addresses,TBC,TBC
+yes,BypassMFAForUiLogins,false,can bypass MFA for UI Logins,High,MFA bypass is bad,TBC,TBC
+yes,ModifyAllData,false,can modify all data in the environment,High,Modify all data is bad,TBC,TBC
+yes,ManagePasswordPolicies,false,can modify password policies,High,User can modify password policies,TBC,TBC
+yes,ResetPasswords,false,can reset passwords,High,User can reset other user passwords,TBC,TBC
+yes,ManageBilling,false,can purchase additional licenses,High,User can purchase additional licenses and features,TBC,TBC
+yes,ManageAuthProviders,false,can manage Auth Proivders,High,User can manage Auth Providers which doesnt sound cool,TBC,TBC
+yes,ManageMobile,false,can manage the Salesforce Mobile settings,Medium,Allows a user to edit Mobile settings,TBC,TBC
+yes,ManageSharing,false,can manage sharing configurations,Medium,Allows a user to modify sharing configurations,TBC,TBC
+yes,DataExport,false,can export data,Medium,Check that this is intended,TBC,TBC
+yes,ManageLoginAccessPolicies,false,can edit login access policies,Medium,Allows a user to specify the login access policies that apply to AdminS,TBC,TBC
+yes,ManageContentPermissions,false,can configure library content,Medium,Allows a user to configure library content,TBC,TBC
+yes,AuthorApex,false,can create and edit Apex classes,Medium,Allows a user to create and edit Apex classes and Triggers,TBC,TBC
+yes,ViewSetup,false,can view the Setup and Configuration,Low,User can view Setup and Configuration,TBC,TBC
+yes,ContentAdministrator,false,is a content admin,Low,Check that this is intended,TBC,TBC
+yes,ViewAllUsers,false,can view all Users,Low,Allows a user to view all users,TBC,TBC
+yes,ViewAllData,false,can view all Data,Low,Allows a user to view all data,TBC,TBC
+yes,ManageHealthCheck,false,can manage Health Checks,Informational,MAY allow user to fix risks,TBC,TBC
+yes,CustomizeApplication,false,can customize the tenancy? I don't know what this means,Informational,Someone please investigate this for me,TBC,TBC
+yes,ExportReport,false,can export reports,Informational,User can export reports,TBC,TBC
+no,minimumPasswordLength,8,Minimum Password Length Too Short,Medium,This currently only checks if the default password length (8) is set. It should be raised for any length less than 14,NOTE: Please don't raise this issue if Single Sign-On is exclusively used and no local Salesforce accounts exist,https://help.salesforce.com/s/articleView?id=sf.admin_password.htm&type=5
+no,maxLoginAttempts,6,Too Many Password Attempts Allowed,Low,3 Login Attempts is sufficient as any more can prove fatal to password spray attacks,This is contextual pending individual risk appetite - personally I don't like more than 3,https://help.salesforce.com/s/articleView?id=sf.admin_password.htm&type=5
+no,sessionTimeout,Minutes,Session Timeout Too Long,Low,...TBC...,...TBC...,https://google.com
