@@ -1,30 +1,30 @@
-isBinaryCheck, sfObject, correctValue, issue, severity, description, notes, references
-yes,ManageUsers,false,can manage users,High,Allows the user full control over all users,TBC,https://google.com
-yes,ManageInternalUsers,false,can manage internal users,High,Allows the user full control over internal users,TBC,https://google.com
-yes,ManageProfilesPermissionsets,false,can modify profiles and permission sets,High,User can modify profiles and permission sets,TBC,https://google.com
-yes,AssignPermissionSets,false,can assign Permission Sets,High,This allows a user to assign Permission Sets,...TBC...,https://google.com
-yes,ManageCustomPermissions,false,can manage custom permissions,High,This allows a user to manage custom permissions,TBC,https://google.com
-yes,ManageRoles,false,can manager roles,High,This allows a user to manage roles,TBC,https://google.com
-yes,ManageIpAddresses,false,can manage IP Addresses within the environment,High,This allows a user to manage IP addresses,TBC,https://google.com
-yes,BypassMFAForUiLogins,false,can bypass MFA for UI Logins,High,MFA bypass is bad,TBC,https://google.com
-yes,ModifyAllData,false,can modify all data in the environment,High,Modify all data is bad,TBC,https://google.com
-yes,ManagePasswordPolicies,false,can modify password policies,High,User can modify password policies,TBC,https://google.com
-yes,ResetPasswords,false,can reset passwords,High,User can reset other user passwords,TBC,https://google.com
-yes,ManageBilling,false,can purchase additional licenses,High,User can purchase additional licenses and features,TBC,https://google.com
-yes,ManageAuthProviders,false,can manage Auth Proivders,High,User can manage Auth Providers which doesnt sound cool,TBC,https://google.com
-yes,ManageMobile,false,can manage the Salesforce Mobile settings,Medium,Allows a user to edit Mobile settings,TBC,https://google.com
-yes,ManageSharing,false,can manage sharing configurations,Medium,Allows a user to modify sharing configurations,TBC,https://google.com
-yes,DataExport,false,can export data,Medium,Check that this is intended,TBC,https://google.com
-yes,ManageLoginAccessPolicies,false,can edit login access policies,Medium,Allows a user to specify the login access policies that apply to Admins,TBC,https://google.com
-yes,ManageContentPermissions,false,can configure library content,Medium,Allows a user to configure library content,TBC,https://google.com
-yes,AuthorApex,false,can create and edit Apex classes,Medium,Allows a user to create and edit Apex classes and Triggers,TBC,https://google.com
-yes,ViewSetup,false,can view the Setup and Configuration,Low,User can view Setup and Configuration,TBC,https://google.com
-yes,ContentAdministrator,false,is a content admin,Low,Check that this is intended,TBC,https://google.com
-yes,ViewAllUsers,false,can view all Users,Low,Allows a user to view all users,TBC,https://google.com
-yes,ViewAllData,false,can view all Data,Low,Allows a user to view all data,TBC,https://google.com
-yes,ManageHealthCheck,false,can manage Health Checks,Informational,MAY allow user to fix risks,TBC,https://google.com
-yes,CustomizeApplication,false,can customize the tenancy? I don't know what this means,Informational,Someone please investigate this for me,TBC,https://google.com
-yes,ExportReport,false,can export reports,Informational,User can export reports,TBC,https://google.com
-no,minimumPasswordLength,8,Minimum Password Length Too Short,Medium,This currently only checks if the default password length (8) is set. It should be raised for any length less than 14,NOTE: Please don't raise this issue if Single Sign-On is exclusively used and no local Salesforce accounts exist,https://help.salesforce.com/s/articleView?id=sf.admin_password.htm&type=5
-no,maxLoginAttempts,6,Too Many Password Attempts Allowed,Low,3 Login Attempts is sufficient as any more can prove fatal to password spray attacks,This is contextual pending individual risk appetite - personally I don't like more than 3,https://help.salesforce.com/s/articleView?id=sf.admin_password.htm&type=5
-no,sessionTimeout,Minutes,Session Timeout Too Long,Low,...TBC...,...TBC...,https://google.com
+isBinaryCheck, sfObject, correctValue, issue, severity, description, notes, references, findingID
+yes,ManageUsers,false,can manage users,High,Allows the user full control over all users,TBC,https://google.com,4444
+yes,ManageInternalUsers,false,can manage internal users,High,Allows the user full control over internal users,TBC,https://google.com,4444
+yes,ManageProfilesPermissionsets,false,can modify profiles and permission sets,High,User can modify profiles and permission sets,TBC,https://google.com,4444
+yes,AssignPermissionSets,false,can assign Permission Sets,High,This allows a user to assign Permission Sets,...TBC...,https://google.com,4444
+yes,ManageCustomPermissions,false,can manage custom permissions,High,This allows a user to manage custom permissions,TBC,https://google.com,4444
+yes,ManageRoles,false,can manager roles,High,This allows a user to manage roles,TBC,https://google.com,4444
+yes,ManageIpAddresses,false,can manage IP Addresses within the environment,High,This allows a user to manage IP addresses,TBC,https://google.com,4444
+yes,BypassMFAForUiLogins,false,can bypass MFA for UI Logins,High,MFA bypass is bad,TBC,https://google.com,4444
+yes,ModifyAllData,false,can modify all data in the environment,High,Modify all data is bad,TBC,https://google.com,4444
+yes,ManagePasswordPolicies,false,can modify password policies,High,User can modify password policies,TBC,https://google.com,4444
+yes,ResetPasswords,false,can reset passwords,High,User can reset other user passwords,TBC,https://google.com,4444
+yes,ManageBilling,false,can purchase additional licenses,High,User can purchase additional licenses and features,TBC,https://google.com,4444
+yes,ManageAuthProviders,false,can manage Auth Proivders,High,User can manage Auth Providers which doesnt sound cool,TBC,https://google.com,4444
+yes,ManageMobile,false,can manage the Salesforce Mobile settings,Medium,Allows a user to edit Mobile settings,TBC,https://google.com,4444
+yes,ManageSharing,false,can manage sharing configurations,Medium,Allows a user to modify sharing configurations,TBC,https://google.com,4444
+yes,DataExport,false,can export data,Medium,Check that this is intended,TBC,https://google.com,4444
+yes,ManageLoginAccessPolicies,false,can edit login access policies,Medium,Allows a user to specify the login access policies that apply to Admins,TBC,https://google.com,4444
+yes,ManageContentPermissions,false,can configure library content,Medium,Allows a user to configure library content,TBC,https://google.com,4444
+yes,AuthorApex,false,can create and edit Apex classes,Medium,Allows a user to create and edit Apex classes and Triggers,TBC,https://google.com,4444
+yes,ViewSetup,false,can view the Setup and Configuration,Low,User can view Setup and Configuration,TBC,https://google.com,4444
+yes,ContentAdministrator,false,is a content admin,Low,Check that this is intended,TBC,https://google.com,4444
+yes,ViewAllUsers,false,can view all Users,Low,Allows a user to view all users,TBC,https://google.com,4444
+yes,ViewAllData,false,can view all Data,Low,Allows a user to view all data,TBC,https://google.com,4444
+yes,ManageHealthCheck,false,can manage Health Checks,Informational,MAY allow user to fix risks,TBC,https://google.com,4444
+yes,CustomizeApplication,false,can customize the tenancy? I don't know what this means,Informational,Someone please investigate this for me,TBC,https://google.com,4444
+yes,ExportReport,false,can export reports,Informational,User can export reports,TBC,https://google.com,4444
+no,minimumPasswordLength,8,Minimum Password Length Too Short,Medium,This currently only checks if the default password length (8) is set. It should be raised for any length less than 14,NOTE: Please don't raise this issue if Single Sign-On is exclusively used and no local Salesforce accounts exist,https://help.salesforce.com/s/articleView?id=sf.admin_password.htm&type=5,4444
+no,maxLoginAttempts,6,Too Many Password Attempts Allowed,Low,3 Login Attempts is sufficient as any more can prove fatal to password spray attacks,This is contextual pending individual risk appetite - personally I don't like more than 3,https://help.salesforce.com/s/articleView?id=sf.admin_password.htm&type=5,4444
+no,sessionTimeout,Minutes,Session Timeout Too Long,Low,...TBC...,...TBC...,https://google.com,4444
