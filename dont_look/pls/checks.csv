@@ -1,59 +1,59 @@
-isBinaryCheck, sfObject, correctValue, issue, severity, description, notes, references, findingID
-yes,canUsersGrantLoginAccess,false,Users can grant Login Access,Informational,...TBC...,...TBC...,https://help.salesforce.com/s/articleView?id=sf.granting_login_access.htm&type=5,4444
+isBinaryCheck, sfObject, correctValue, issue, severity, affected, notes, references, findingID
+yes,canUsersGrantLoginAccess,false,Users can grant Login Access,Informational,N/A,N/A,https://help.salesforce.com/s/articleView?id=sf.granting_login_access.htm&type=5,4444
 yes,enableAdminLoginAsAnyUser,false,Administrators can Login as Any User,Informational,This setting allows Administrators to impersonate users and is often unneccessary. Immediate risks include Administrators exfiltrating data under the guise of another user (This may be mitigatable using certain logs).,This is a very contextual issue and can be ignored depending on risk appetite,https://help.salesforce.com/s/articleView?id=000334140&type=1,4444
 no,minimumPasswordLength,8,Minimum Password Length Too Short,Medium,This currently only checks if the default password length (8) is set. It should be raised for any length less than 14,NOTE: Please don't raise this issue if Single Sign-On is exclusively used and no local Salesforce accounts exist,https://help.salesforce.com/s/articleView?id=sf.admin_password.htm&type=5,4444
 no,maxLoginAttempts,6,Too Many Password Attempts Allowed,Low,3 Login Attempts is sufficient as any more can prove fatal to password spray attacks,This is contextual pending individual risk appetite - personally I don't like more than 3,https://help.salesforce.com/s/articleView?id=sf.admin_password.htm&type=5,4444
 yes,enableXssProtection,true,XSS Protection Enabled,Low,I'm not sure why you would ever turn this off - see references for clarification,No further comment,https://owasp.org/www-community/attacks/xss/,4444
 yes,enforceIpRangesEveryRequest,true,IP Ranges Enforced on Every Request,Low,If using IP Login Ranges (which you should be) this setting should be enabled,Feel free to ignore this if the context of the application doesn't require such security,https://google.com,4444
-yes,forceLogoutOnSessionTimeout,true,Force Logout on Session Timeout,Low,...TBC...,...TBC...,https://google.com,4444
-yes,identityConfirmationOnEmailChange,true,Confirm User Identity on Email Change,Informational,...TBC...,...TBC...,https://google.com,4444
-yes,identityConfirmationOnTwoFactorRegistrationEnabled,true,Confirm User Identity on MFA Registration,Low,...TBC...,...TBC...,https://google.com,4444
-yes,lockSessionsToIp,true,Lock User Sessions to Login IP,Low,...TBC...,...TBC...,https://google.com,4444
-yes,redirectionWarning,true,Redirection from Salesforce Shows Warning,Medium,...TBC...,...TBC...,https://google.com,4444
-yes,requireHttpOnly,true,Require HttpOnly Header Attribute,Medium,...TBC...,...TBC...,https://google.com,4444
-yes,isLoginWithSalesforceCredentialsDisabled,true,Salesforce Credential Login Allowed,Informational,...TBC...,...TBC...,https://google.com,4444
-yes,enableCSPOnEmail,true,CSP on Email,Low,...TBC...,...TBC...,https://google.com,4444
-yes,enableCSRFOnGet,true,CSRF on GET Requests,Medium,...TBC...,...TBC...,https://google.com,4444
-yes,enableCSRFOnPost,true,CSRF on POST Requests,Medium,...TBC...,...TBC...,https://google.com,4444
-yes,enableContentSniffingProtection,true,Content Sniffing Protection,Low,...TBC...,...TBC...,https://google.com,4444
-yes,enableManualUserRecordSharing,false,Users Can Share Their Record,Informational,...TBC...,...TBC...,https://google.com,4444
-yes,enableStandardReportVisibility,false,Reports Can Show Excessive User Information,Informational,...TBC...,...TBC...,https://google.com,4444
-no,sessionTimeout,Minutes,Session Timeout Too Long,Low,...TBC...,...TBC...,https://google.com,4444
-yes,enableClickjackNonsetupSFDC,true,Enable clickjack protection for non-Setup Salesforce pages,Medium,...TBC...,...TBC...,https://google.com,4444
-yes,enableClickjackNonsetupUser,true,Enable clickjack protection for customer Visualforce pages with standard headers,Medium,...TBC...,...TBC...,https://google.com,4444
-yes,enableClickjackNonsetupUserHeaderless,true,Enable clickjack protection for customer Visualforce pages with headers disabled,Medium,...TBC...,...TBC...,https://google.com,4444
-yes,enableClickjackSetup,true,Enable clickjack protection for Setup pages,Medium,...TBC...,...TBC...,https://google.com,4444
-yes,enableCoepHeader,true,Cross-Origin Embedder Policy (COEP),Informational,...TBC...,...TBC...,https://google.com,4444
-yes,enableCoopHeader,true,Cross-Origin Opener Policy (COOP),Informational,...TBC...,...TBC...,https://google.com,4444
-yes,enableOauthCorsPolicy,true,CORS for OAuth endpoints,Informational,...TBC...,...TBC...,https://google.com,4444
-yes,enableConcealPersonalInfo,true,User PII Concealment,Informational,...TBC...,NOTE: Ignore this if enableEnhancedConcealPersonalInfo is set to true,https://google.com,4444
-yes,restrictedProfileCloning,true,Profile Cloning Not Restricted,Informational,...TBC...,...TBC...,https://google.com,4444
-yes,enableRestrictEmailDomains,true,Email Domains Not Restricted,Medium,...TBC...,...TBC...,https://google.com,4444
-yes,enableAdvancedCMTSecurity,true,Restricted Access to Custom Metadata Types,Low,...TBC...,...TBC...,https://google.com,4444
-yes,enableAdvancedCSSecurity,true,Restrict Access to Custom Settings,Low,...TBC...,...TBC...,https://google.com,4444
-yes,enableConsentEventStream,true,Consent Change Tracking,Informational,...TBC...,...TBC...,https://google.com,4444
-yes,clickjackSSPLoginPage,true,Clickjack Protection on Portal Login Page,Low,...TBC...,...TBC...,https://google.com,4444
-yes,redirectPortalLoginToHttps,true,Redirect Portal Login to HTTPS,Low,...TBC...,...TBC...,https://google.com,4444
-yes,enableEventBusEncryption,true,Enable Encryption for Event Bus?,Low,...TBC...,...TBC...,https://google.com,4444
-yes,enableConsentManagement,true,Enable Consent Management,Medium,...TBC...,Setting this field to false purges all data protection details such as privacy preferences and stored consent forms,https://google.com,4444
-yes,enableOpportunityFieldHistoryTracking,true,Enable Field History for Opportunities,Informational,...TBC...,This is on the edge of not being included but I like logging,https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_opportunityssettings.htm,4444
-yes,enableOmniAutoLoginPrompt,true,Limits Omni-Channel sessions to one per user,Low,...TBC...,I'm happy to remove this if deemed silly but I don't mind it,https://google.com,4444
+yes,forceLogoutOnSessionTimeout,true,Force Logout on Session Timeout,Low,N/A,N/A,https://google.com,4444
+yes,identityConfirmationOnEmailChange,true,Confirm User Identity on Email Change,Informational,N/A,N/A,https://google.com,4444
+yes,identityConfirmationOnTwoFactorRegistrationEnabled,true,Confirm User Identity on MFA Registration,Low,N/A,N/A,https://google.com,4444
+yes,lockSessionsToIp,true,Lock User Sessions to Login IP,Low,N/A,N/A,https://google.com,4444
+yes,redirectionWarning,true,Redirection from Salesforce Shows Warning,Medium,N/A,N/A,https://google.com,4444
+yes,requireHttpOnly,true,Require HttpOnly Header Attribute,Medium,N/A,N/A,https://google.com,4444
+yes,isLoginWithSalesforceCredentialsDisabled,true,Salesforce Credential Login Allowed,Informational,N/A,N/A,https://google.com,4444
+yes,enableCSPOnEmail,true,CSP on Email,Low,N/A,N/A,https://google.com,4444
+yes,enableCSRFOnGet,true,CSRF on GET Requests,Medium,N/A,N/A,https://google.com,4444
+yes,enableCSRFOnPost,true,CSRF on POST Requests,Medium,N/A,N/A,https://google.com,4444
+yes,enableContentSniffingProtection,true,Content Sniffing Protection,Low,N/A,N/A,https://google.com,4444
+yes,enableManualUserRecordSharing,false,Users Can Share Their Record,Informational,N/A,N/A,https://google.com,4444
+yes,enableStandardReportVisibility,false,Reports Can Show Excessive User Information,Informational,N/A,N/A,https://google.com,4444
+no,sessionTimeout,Minutes,Session Timeout Too Long,Low,N/A,N/A,https://google.com,4444
+yes,enableClickjackNonsetupSFDC,true,Enable clickjack protection for non-Setup Salesforce pages,Medium,N/A,N/A,https://google.com,4444
+yes,enableClickjackNonsetupUser,true,Enable clickjack protection for customer Visualforce pages with standard headers,Medium,N/A,N/A,https://google.com,4444
+yes,enableClickjackNonsetupUserHeaderless,true,Enable clickjack protection for customer Visualforce pages with headers disabled,Medium,N/A,N/A,https://google.com,4444
+yes,enableClickjackSetup,true,Enable clickjack protection for Setup pages,Medium,N/A,N/A,https://google.com,4444
+yes,enableCoepHeader,true,Cross-Origin Embedder Policy (COEP),Informational,N/A,N/A,https://google.com,4444
+yes,enableCoopHeader,true,Cross-Origin Opener Policy (COOP),Informational,N/A,N/A,https://google.com,4444
+yes,enableOauthCorsPolicy,true,CORS for OAuth endpoints,Informational,N/A,N/A,https://google.com,4444
+yes,enableConcealPersonalInfo,true,User PII Concealment,Informational,N/A,NOTE: Ignore this if enableEnhancedConcealPersonalInfo is set to true,https://google.com,4444
+yes,restrictedProfileCloning,true,Profile Cloning Not Restricted,Informational,N/A,N/A,https://google.com,4444
+yes,enableRestrictEmailDomains,true,Email Domains Not Restricted,Medium,N/A,N/A,https://google.com,4444
+yes,enableAdvancedCMTSecurity,true,Restricted Access to Custom Metadata Types,Low,N/A,N/A,https://google.com,4444
+yes,enableAdvancedCSSecurity,true,Restrict Access to Custom Settings,Low,N/A,N/A,https://google.com,4444
+yes,enableConsentEventStream,true,Consent Change Tracking,Informational,N/A,N/A,https://google.com,4444
+yes,clickjackSSPLoginPage,true,Clickjack Protection on Portal Login Page,Low,N/A,N/A,https://google.com,4444
+yes,redirectPortalLoginToHttps,true,Redirect Portal Login to HTTPS,Low,N/A,N/A,https://google.com,4444
+yes,enableEventBusEncryption,true,Enable Encryption for Event Bus?,Low,N/A,N/A,https://google.com,4444
+yes,enableConsentManagement,true,Enable Consent Management,Medium,N/A,Setting this field to false purges all data protection details such as privacy preferences and stored consent forms,https://google.com,4444
+yes,enableOpportunityFieldHistoryTracking,true,Enable Field History for Opportunities,Informational,N/A,This is on the edge of not being included but I like logging,https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_opportunityssettings.htm,4444
+yes,enableOmniAutoLoginPrompt,true,Limits Omni-Channel sessions to one per user,Low,N/A,I'm happy to remove this if deemed silly but I don't mind it,https://google.com,4444
 yes,enableMobileAppPushNotifications,true,Enable Push Notifications to Mobile,Low,Are push notifications enabled for mobile devices,This should be true,https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_notificationssettings.htm,4444
-yes,enableNotifications,true,Enable Notifications,Medium,Notifications for Salesforce,...TBC...,https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_notificationssettings.htm,4444
-yes,canOnlyLoginWithMyDomainUrl,true,Users can Only Login using MyDomain custom URL,Informational,...TBC...,Consider less password sprayability by limiting login interfaces,https://google.com,4444
-yes,doesApiLoginRequireOrgDomain,true,API Users can Only Login using MyDomain custom URL,Informational,...TBC...,Consider less password sprayability by limiting login interfaces,https://google.com,4444
-yes,doesTrackHistory,true,Enable Field History for Leads,Informational,...TBC...,Logging,https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_leadconfigsettings.htm,4444
-yes,enableIncidentMgmt,true,Enable Incident Management for Incidents?,Informational,...TBC...,Logging...,https://google.com,4444
-yes,enableDeleteMonitoringData,false,Users can Delete Event Log Files,Medium,...TBC...,Theoretically an adversary can delete login logs after compromising an account,https://google.com,4444
-yes,bypassMeteringBlock,false,Transaction Security Policies Bypassable due to Metering,Medium,...TBC...,TSPs shouldnt be bypassable,https://google.com,4444
-yes,enableLoginForensics,true,Track and Audit User Login Attempts,Medium,...TBC...,Monitoring of password attacks and login failures,https://google.com,4444
-yes,enableTerminateOldestSession,false,Terminate Oldest User Session on Max Sessions Reached,Low,...TBC...,My logic is that an adversary can disallow valid user logins by taking up all allowed sessions post compromise,https://google.com,4444
-yes,enableTransactionSecurityPolicies,true,Transaction Security Policies Not Enabled,Medium,...TBC...,Note more research is required here,https://google.com,4444
-yes,enableReplayDetection,true,Cache-only Key Callouts Protected from Replay Attacks,Low,...TBC...,Note more research is required here,https://google.com,4444
-yes,doesGmailStayConnectedToSalesforce,false,Salesforce remembers Gmail Credentials,Low,...TBC...,This seems like a post-compromise issue,https://google.com,4444
-yes,shouldUseTrustedDomainsList,true,Web Domains using Outlook integration must be on Trusted List?,Low,...TBC...,Note more research is required here,https://google.com,4444
-yes,enableEmailSpfCompliance,true,Outgoing Emails Comply with SPF Email Authentication,Low,...TBC...,Note more research is required here,https://google.com,4444
-yes,enableHtmlEmail,false,Email-To-Case Emails in Text Format,Low,...TBC...,No reason not to parse HTML emails to Text,https://google.com,4444
-yes,enableRestrictTlsToDomains,false,TLS Restricted to Certain Domains,Medium,...TBC...,TLS should be enforced at all times and always,https://google.com,4444
-yes,blockEmbeddedLoginUnknownURLRedirect,true,Block Redirects to Unknown URLs in OAuth Response,Informational,...TBC...,Note more research is required here,https://google.com,4444
-yes,enableAccountHistoryTracking,true,History Tracking is Enabled for Accounts,Informational,...TBC...,Logging,https://google.com,4444
+yes,enableNotifications,true,Enable Notifications,Medium,Notifications for Salesforce,N/A,https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_notificationssettings.htm,4444
+yes,canOnlyLoginWithMyDomainUrl,true,Users can Only Login using MyDomain custom URL,Informational,N/A,Consider less password sprayability by limiting login interfaces,https://google.com,4444
+yes,doesApiLoginRequireOrgDomain,true,API Users can Only Login using MyDomain custom URL,Informational,N/A,Consider less password sprayability by limiting login interfaces,https://google.com,4444
+yes,doesTrackHistory,true,Enable Field History for Leads,Informational,N/A,Logging,https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_leadconfigsettings.htm,4444
+yes,enableIncidentMgmt,true,Enable Incident Management for Incidents?,Informational,N/A,Logging...,https://google.com,4444
+yes,enableDeleteMonitoringData,false,Users can Delete Event Log Files,Medium,N/A,Theoretically an adversary can delete login logs after compromising an account,https://google.com,4444
+yes,bypassMeteringBlock,false,Transaction Security Policies Bypassable due to Metering,Medium,N/A,TSPs shouldnt be bypassable,https://google.com,4444
+yes,enableLoginForensics,true,Track and Audit User Login Attempts,Medium,N/A,Monitoring of password attacks and login failures,https://google.com,4444
+yes,enableTerminateOldestSession,false,Terminate Oldest User Session on Max Sessions Reached,Low,N/A,My logic is that an adversary can disallow valid user logins by taking up all allowed sessions post compromise,https://google.com,4444
+yes,enableTransactionSecurityPolicies,true,Transaction Security Policies Not Enabled,Medium,N/A,Note more research is required here,https://google.com,4444
+yes,enableReplayDetection,true,Cache-only Key Callouts Protected from Replay Attacks,Low,N/A,Note more research is required here,https://google.com,4444
+yes,doesGmailStayConnectedToSalesforce,false,Salesforce remembers Gmail Credentials,Low,N/A,This seems like a post-compromise issue,https://google.com,4444
+yes,shouldUseTrustedDomainsList,true,Web Domains using Outlook integration must be on Trusted List?,Low,N/A,Note more research is required here,https://google.com,4444
+yes,enableEmailSpfCompliance,true,Outgoing Emails Comply with SPF Email Authentication,Low,N/A,Note more research is required here,https://google.com,4444
+yes,enableHtmlEmail,false,Email-To-Case Emails in Text Format,Low,N/A,No reason not to parse HTML emails to Text,https://google.com,4444
+yes,enableRestrictTlsToDomains,false,TLS Restricted to Certain Domains,Medium,N/A,TLS should be enforced at all times and always,https://google.com,4444
+yes,blockEmbeddedLoginUnknownURLRedirect,true,Block Redirects to Unknown URLs in OAuth Response,Informational,N/A,Note more research is required here,https://google.com,4444
+yes,enableAccountHistoryTracking,true,History Tracking is Enabled for Accounts,Informational,N/A,Logging,https://google.com,4444
