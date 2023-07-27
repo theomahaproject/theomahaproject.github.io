@@ -1,10 +1,10 @@
 isBinaryCheck, sfObject, correctValue, issue, severity, description, notes, references, findingID
-yes,ManageUsers,false,can manage users,High,Allows the user full control over all users,TBC,https://google.com,4444
-yes,ManageInternalUsers,false,can manage internal users,High,Allows the user full control over internal users,TBC,https://google.com,4444
-yes,ManageProfilesPermissionsets,false,can modify profiles and permission sets,High,User can modify profiles and permission sets,TBC,https://google.com,4444
-yes,AssignPermissionSets,false,can assign Permission Sets,High,This allows a user to assign Permission Sets,...TBC...,https://google.com,4444
-yes,ManageCustomPermissions,false,can manage custom permissions,High,This allows a user to manage custom permissions,TBC,https://google.com,4444
-yes,ManageRoles,false,can manager roles,High,This allows a user to manage roles,TBC,https://google.com,4444
+yes,ManageUsers,false,can manage users,High,Allows the user full control over all users,TBC,https://google.com,1518
+yes,ManageInternalUsers,false,can manage internal users,High,Allows the user full control over internal users,TBC,https://google.com,1518
+yes,ManageProfilesPermissionsets,false,can modify profiles and permission sets,High,User can modify profiles and permission sets,TBC,https://google.com,1518
+yes,AssignPermissionSets,false,can assign Permission Sets,High,This allows a user to assign Permission Sets,...TBC...,https://google.com,1518
+yes,ManageCustomPermissions,false,can manage custom permissions,High,This allows a user to manage custom permissions,TBC,https://google.com,1518
+yes,ManageRoles,false,can manager roles,High,This allows a user to manage roles,TBC,https://google.com,1518
 yes,ManageIpAddresses,false,can manage IP Addresses within the environment,High,This allows a user to manage IP addresses,TBC,https://google.com,4444
 yes,BypassMFAForUiLogins,false,can bypass MFA for UI Logins,High,MFA bypass is bad,TBC,https://google.com,4444
 yes,ModifyAllData,false,can modify all data in the environment,High,Modify all data is bad,TBC,https://google.com,4444
