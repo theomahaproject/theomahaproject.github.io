@@ -1,0 +1,256 @@
+/*
+  The CSS in this style tag is based on TailwindCSS and extended with custom styles.
+*/
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-lemonade: #fbd335;
+  --color-lime: #00894c;
+  --color-cyan: #0deafa;
+  --color-text: #111827;
+  --color-text-secondary: #4b5563;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+    'Open Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+  @apply bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100;
+}
+
+.container {
+  width: 100%;
+  max-width: 65rem; /* Reducing from 72rem for narrower content */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem; /* Reduced from 4rem */
+  padding-right: 2rem; /* Reduced from 4rem */
+}
+
+.tag {
+  @apply inline-block px-3 py-1 rounded-full text-sm 
+    bg-gray-100 text-gray-700 
+    dark:bg-gray-800 dark:text-gray-300 
+    hover:bg-gray-200 dark:hover:bg-gray-700 
+    transition-colors;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center px-6 py-3 
+    rounded-md font-medium transition-all duration-200;
+}
+
+.btn-primary {
+  @apply bg-lime text-white hover:opacity-90;
+}
+
+.btn-outline {
+  @apply border-2 border-lime text-lime hover:bg-lime hover:text-white;
+}
+
+a {
+  color: var(--color-text);
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--color-cyan);
+  text-decoration: none;
+}
+
+/* Header and footer styles */
+header, footer {
+  background-color: white;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+footer {
+  border-top: 1px solid #e5e7eb;
+  border-bottom: none;
+}
+
+/* Episode styles */
+.episode-thumbnail {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.prose {
+  @apply text-gray-900 dark:text-gray-100;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  @apply text-gray-900 dark:text-white font-bold;
+}
+
+/* Episode block styles */
+.episode-block {
+  @apply bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-lg transition-all duration-300;
+}
+
+/* Refining article card layout to remove extra gap */
+article {
+  display: flex;
+  flex-direction: column;
+  max-width: 60rem; /* Even narrower content area */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+article .aspect-video {
+  position: relative;
+  width: 100%;
+  height: auto; /* Maintain aspect ratio */
+}
+
+article img {
+  object-fit: cover;
+  width: 100%;
+  height: auto; /* Ensure image scales properly */
+}
+
+article .p-6 {
+  padding: 1.5rem; /* Ensure proper spacing for text */
+}
+
+/* Custom Audio Player Styles */
+.audio-player-wrapper {
+  position: relative;
+  width: 100%;
+  padding: 1px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #84cc16, #22c55e);
+  overflow: hidden; /* Added to prevent edge bleeding */
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.audio-player-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: 1px; /* Changed from 0 to match new padding */
+  border-radius: 11px; /* Adjusted to be 1px less than parent */
+  background: linear-gradient(90deg, #84cc16, #22c55e);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.custom-audio-player {
+  --player-bg: white;
+  border-radius: 11px; /* Adjusted to match wrapper::before */
+  padding: 8px;
+  width: 100%;
+  background: var(--player-bg);
+}
+
+/* Audio player controls styling */
+.custom-audio-player::-webkit-media-controls-panel {
+  background: var(--player-bg);
+  border-radius: 10px;
+  padding: 0 8px;
+}
+
+.custom-audio-player::-webkit-media-controls-play-button {
+  background-color: #84cc16;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+
+.custom-audio-player::-webkit-media-controls-play-button:hover {
+  transform: scale(1.1);
+}
+
+.custom-audio-player::-webkit-media-controls-timeline {
+  background: linear-gradient(90deg, #84cc16, #22c55e);
+  border-radius: 10px;
+  height: 4px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.custom-audio-player::-webkit-media-controls-current-time-display,
+.custom-audio-player::-webkit-media-controls-time-remaining-display {
+  color: black;
+  font-weight: 500;
+  text-shadow: none !important;
+  -webkit-text-stroke: 0 !important;
+}
+
+/* Dark mode adjustments */
+.dark .custom-audio-player {
+  --player-bg: #1f2937;
+}
+
+.dark .custom-audio-player::-webkit-media-controls-current-time-display,
+.dark .custom-audio-player::-webkit-media-controls-time-remaining-display {
+  color: white;
+}
+
+/* Plyr customization */
+.plyr--audio {
+  --plyr-color-main: #84cc16;
+  --plyr-audio-controls-background: transparent;
+  --plyr-audio-control-color: #4b5563;
+  --plyr-audio-control-color-hover: #ffffff;
+  border-radius: 0.75rem;
+  background: rgba(132, 204, 22, 0.1);
+  backdrop-filter: blur(8px);
+}
+
+.dark .plyr--audio {
+  --plyr-audio-control-color: #9ca3af;
+  --plyr-audio-control-color-hover: #ffffff;
+  background: rgba(132, 204, 22, 0.05);
+}
+
+.plyr--audio .plyr__controls {
+  padding: 12px;
+  border-radius: 0.75rem;
+  background: transparent;
+  border: 1px solid rgba(132, 204, 22, 0.2);
+}
+
+/* Time and progress customization */
+.plyr--audio .plyr__time {
+  color: #4b5563;
+}
+
+.dark .plyr--audio .plyr__time {
+  color: #9ca3af;
+}
+
+.plyr--full-ui input[type=range] {
+  color: #84cc16;
+}
+
+.plyr--audio .plyr__progress__buffer {
+  color: rgba(132, 204, 22, 0.3);
+}
+
+/* Volume control customization */
+.plyr--audio .plyr__volume {
+  color: #84cc16;
+}
+
+.dark .plyr--audio .plyr__volume {
+  color: #84cc16;
+}
+
+/* Remove video player styles */
+.video-player-wrapper,
+.video-player-container {
+  /* Reset any previous styles */
+  all: unset;
+}

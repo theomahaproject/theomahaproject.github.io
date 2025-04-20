@@ -1,0 +1,556 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { getCollection } from 'astro:content';
+import FormattedDate from '../components/FormattedDate.astro';
+
+const allEpisodes = await getCollection('projects');
+const sortedEpisodes = allEpisodes.sort((a, b) => b.data.episodeNumber - a.data.episodeNumber);
+const latestEpisode = sortedEpisodes[0];
+const recentEpisodes = sortedEpisodes.slice(1, 3);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			.gradient-text {
+				background: linear-gradient(90deg,rgb(8, 181, 234) 0%,rgb(74, 85, 180) 50%,rgb(211, 13, 211) 100%);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+			}
+			
+			.hero-gradient {
+				background: radial-gradient(circle at 10% 20%, rgba(8, 219, 234, 0.2) 0%, rgba(177, 43, 211, 0.1) 90%);
+			}
+			
+			.animate-float {
+				animation: float 6s ease-in-out infinite;
+			}
+			
+			@keyframes float {
+				0% { transform: translateY(0px); }
+				50% { transform: translateY(-20px); }
+				100% { transform: translateY(0px); }
+			}
+			
+			.metric-card {
+				transition: all 0.3s ease;
+			}
+			
+			.metric-card:hover {
+				transform: translateY(-10px);
+			}
+
+			.floating-lemons {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				pointer-events: none;
+				z-index: 0;
+			}
+			
+			.lemon {
+				position: absolute;
+				animation: floatAround 15s infinite;
+				opacity: 0.1;
+			}
+			
+			@keyframes floatAround {
+				0%, 100% { transform: translate(0, 0) rotate(0deg); }
+				25% { transform: translate(100px, 50px) rotate(90deg); }
+				50% { transform: translate(50px, 100px) rotate(180deg); }
+				75% { transform: translate(-50px, 50px) rotate(270deg); }
+			}
+			
+			.glow-effect {
+				animation: softGlow 3s ease-in-out infinite;
+				background: linear-gradient(90deg,rgb(8, 189, 234),rgb(150, 5, 138));
+				-webkit-background-clip: text;
+				background-clip: text;
+				position: relative;
+			}
+
+			.funding-badge {
+				position: relative;
+				overflow: hidden;
+				background: linear-gradient(90deg,rgb(8, 200, 234), #059669);
+				transition: transform 0.3s ease;
+			}
+
+			.funding-badge:hover {
+				transform: translateY(-2px);
+			}
+
+			.funding-badge::before {
+				content: '';
+				position: absolute;
+				top: -50%;
+				left: -50%;
+				width: 200%;
+				height: 200%;
+				background: linear-gradient(
+					45deg,
+					transparent,
+					rgba(255, 255, 255, 0.3),
+					transparent
+				);
+				transform: rotate(45deg);
+				animation: shine 3s infinite;
+			}
+
+			@keyframes shine {
+				0% { transform: translateX(-100%) rotate(45deg); }
+				100% { transform: translateX(100%) rotate(45deg); }
+			}
+
+			@keyframes softGlow {
+				0%, 100% { text-shadow: 0 0 10px rgba(234, 8, 204, 0.5); }
+				50% { text-shadow: 0 0 20px rgba(52, 211, 211, 0.5); }
+			}
+			
+			.spin-slowly {
+				animation: spin 20s linear infinite;
+			}
+			
+			@keyframes spin {
+				from { transform: rotate(0deg); }
+				to { transform: rotate(360deg); }
+			}
+		</style>
+	</head>
+	<body class="min-h-screen bg-white dark:bg-gray-900">
+		<Header />
+		
+		<main>
+			<!-- Floating Lemons Background -->
+			<div class="floating-lemons">
+				{[...Array(5)].map((_, i) => (
+					<div 
+						class="lemon" 
+						style={`top: ${Math.random() * 100}%; left: ${Math.random() * 100}%; animation-delay: -${i * 3}s;`}
+					>
+																																					👨🏻‍💻
+					</div>
+				))}
+			</div>
+
+			<!-- Hero Section -->
+			<section class="hero-gradient py-24 relative overflow-hidden">
+				<div class="container max-w-6xl mx-auto px-4">
+					<div class="flex flex-col md:flex-row items-center">
+						<div class="md:w-1/2 mb-10 md:mb-0 relative z-10">
+							<div class="mb-4">
+								<!--<span class="funding-badge text-gray-900 px-4 py-2 rounded-full text-sm font-bold inline-block">
+																																							🚀 Series A Funded!
+								</span> -->
+							</div>
+							<h1 class="text-5xl md:text-7xl font-extrabold mb-4 text-gray-900 dark:text-white">
+								<span class="gradient-text">Little projects</span> and other
+								<br><span class="glow-effect">such</span> things
+							</h1>
+							<p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-lg">
+								Like this silly little game about walking and sometimes crying.
+							</p>
+							<div class="flex flex-wrap gap-4">
+								<a href="/projects/walk/" class="px-8 py-4 bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-500 bg-size-200 animate-gradient-x text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+									This Game
+								</a>
+								<a href={"/projects"} class="px-8 py-4 border-2 border-gray-800 dark:border-gray-200 text-gray-800 dark:text-gray-200 font-bold rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300 transform hover:-translate-y-1">
+									Other Projects
+								</a>
+							</div>
+							<!--
+							<div class="mt-8 p-4 bg-white/10 backdrop-blur-lg rounded-xl border border-gray-200 dark:border-gray-700">
+								<div class="flex items-center gap-4 mb-2">
+									<div class="h-2 w-2 bg-green-500 rounded-full animate-pulse"></div>
+									<p class="text-sm text-gray-600 dark:text-gray-400">AI Stats (Live)</p>
+								</div>
+								<div class="grid grid-cols-2 gap-4">
+									<div>
+										<p class="text-2xl font-bold text-gray-900 dark:text-white">1.2M</p>
+										<p class="text-sm text-gray-500">Parameters/Lemon</p>
+									</div>
+									<div>
+										<p class="text-2xl font-bold text-gray-900 dark:text-white">99.9%</p>
+										<p class="text-sm text-gray-500">AI Confidence*</p>
+									</div>
+								</div>
+								<p class="text-xs text-gray-400 mt-2">*May not reflect actual lemonade quality</p>
+							</div>
+							-->
+						</div>
+						<div class="md:w-1/2 relative">
+							<div class="absolute inset-0 bg-gradient-to-br from-blue-300 to-lime-400 rounded-full blur-3xl opacity-20 animate-pulse"></div>
+							<div class="relative w-full max-w-[1000px] -mr-20 animate-float">
+								<div class="relative bg-white dark:bg-gray-800 rounded-3xl p-2 shadow-2xl overflow-hidden transform hover:scale-105 transition-transform duration-300 hover:shadow-[0_20px_50px_rgba(8, 189, 234,0.3)]">
+										<img
+											src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2176940/ss_b7811b9e39e7b8015c24fe4dd2a48c1bc950398a.600x338.jpg"
+											class="w-full aspect-video object-cover rounded-2xl"
+											width="1920"
+											height="1080"
+											loading="eager"
+											decoding="async"
+										/>
+									<!--<div class="absolute top-3 right-3 bg-red-500 text-white text-sm font-bold px-3 py-1.5 rounded-full animate-pulse">
+										LIVE
+									</div>-->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Ridiculous Metrics Section -->
+			<!--
+			<section class="py-16 bg-gray-50 dark:bg-gray-800/50">
+				<div class="container max-w-6xl mx-auto px-4">
+					<h2 class="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">Our <span class="gradient-text">AI-Powered</span> Metrics</h2>
+					<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+						<div class="metric-card bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg text-center">
+							<div class="text-4xl font-bold mb-2 gradient-text">42</div>
+							<p class="text-gray-600 dark:text-gray-400">LLMs Deployed</p>
+							<p class="text-sm text-gray-500 dark:text-gray-500 mt-2">Just for sugar measurement</p>
+						</div>
+						<div class="metric-card bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg text-center">
+							<div class="text-4xl font-bold mb-2 gradient-text">7.3B</div>
+							<p class="text-gray-600 dark:text-gray-400">Parameters</p>
+							<p class="text-sm text-gray-500 dark:text-gray-500 mt-2">To squeeze one lemon</p>
+						</div>
+						<div class="metric-card bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg text-center">
+							<div class="text-4xl font-bold mb-2 gradient-text">0</div>
+							<p class="text-gray-600 dark:text-gray-400">Human Input</p>
+							<p class="text-sm text-gray-500 dark:text-gray-500 mt-2">100% autonomous operation</p>
+						</div>
+						<div class="metric-card bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg text-center">
+							<div class="text-4xl font-bold mb-2 gradient-text">∞</div>
+							<p class="text-gray-600 dark:text-gray-400">Computing Power</p>
+							<p class="text-sm text-gray-500 dark:text-gray-500 mt-2">Required per glass</p>
+						</div>
+					</div>
+				</div>
+			</section>
+			-->
+
+			
+			<!-- AI Features Banner -->
+			<!--
+			<section class="py-8 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 bg-size-200 relative overflow-hidden">
+			-->
+			<!--
+				<div class="absolute inset-0 flex items-center whitespace-nowrap marquee">
+					<div class="animate-marquee flex gap-8 text-white/20 text-4xl font-bold">
+						NEURAL NETWORKS • DEEP LEARNING • GPT-5 • AUTONOMOUS JUICING • QUANTUM TASTE PREDICTION • ROBOTIC GARNISHING • SENTIMENT-BASED PRICING •&nbsp;
+					</div>
+					<div class="animate-marquee flex gap-8 text-white/20 text-4xl font-bold" aria-hidden="true">
+						NEURAL NETWORKS • DEEP LEARNING • GPT-5 • AUTONOMOUS JUICING • QUANTUM TASTE PREDICTION • ROBOTIC GARNISHING • SENTIMENT-BASED PRICING •&nbsp;
+					</div>
+				</div>
+			-->
+				<!--
+				<div class="container max-w-6xl mx-auto px-4 py-8 relative">
+					<h2 class="text-3xl md:text-4xl font-bold text-white text-center glow-effect">
+						The World's First AGI-Powered Lemonade Stand
+					</h2>
+				</div>
+				-->
+			</section>
+			
+
+			<!-- Latest Episode Section -->
+			{latestEpisode && (
+				<section id="latestEpisode" class="py-16">
+					<div class="container max-w-6xl mx-auto px-4">
+						<div class="flex flex-col md:flex-row items-start gap-8">
+							<div class="w-full md:w-2/5">
+								<div class="mb-6">
+									<span class="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-1 rounded-full text-sm font-semibold tracking-wide">LATEST RELEASE</span>
+								</div>
+								<h2 class="text-4xl font-bold mb-4 text-gray-900 dark:text-white">
+									{latestEpisode.data.title}
+								</h2>
+								<p class="text-lime-600 dark:text-lime-400 font-medium mb-4">
+									<FormattedDate date={latestEpisode.data.pubDate} />
+								</p>
+								<p class="text-lg text-gray-700 dark:text-gray-300 mb-6">{latestEpisode.data.description}</p>
+								<!--
+								<div class="flex flex-wrap gap-2 mb-6">
+									{latestEpisode.data.tags.map((tag) => (
+										<a
+											href={`/projects?tag=${tag.replace(/ /g, '+')}`}
+											class="tag-badge bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-3 py-1 rounded-full text-xs font-medium hover:bg-lime-100 hover:text-lime-700 dark:hover:bg-lime-900/30 dark:hover:text-lime-300 transition-colors flex items-center gap-1"
+										>
+											<span class="inline-block w-1.5 h-1.5 rounded-full bg-lime-500 dark:bg-lime-400"></span>
+											{tag}
+										</a>
+									))}
+								</div>
+								-->
+								<a
+									href={`/projects/${latestEpisode.slug}/`}
+									class="inline-block px-8 py-4 bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-500 bg-size-200 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+								>
+									View Project
+								</a>
+							</div>
+							<div class="w-full md:w-3/5">
+								<div class="bg-gradient-to-br from-yellow-300/20 to-lime-300/20 p-1 rounded-2xl shadow-xl">
+									<div class="w-full aspect-video">
+										<img src={`${latestEpisode.data.imgURL}`}>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			)}
+
+			<!-- Team Section -->
+			<!--
+			<section class="py-16 bg-gray-50 dark:bg-gray-800/50">
+				<div class="container max-w-6xl mx-auto px-4">
+					<div class="text-center mb-12">
+						<h2 class="text-3xl font-bold mb-2 text-gray-900 dark:text-white">Meet Our <span class="gradient-text">AI Pioneers</span></h2>
+						<p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Three entrepreneurs on a mission to disrupt the lemonade industry with neural-network-optimized, quantum-computed, robotically-crafted lemonade.</p>
+					</div>
+					
+					<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+						<div class="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl relative after:absolute after:inset-0 after:opacity-0 hover:after:opacity-100 after:transition-opacity after:duration-300 after:rounded-2xl after:shadow-[0_0_50px_rgba(52,211,153,0.15)]">
+							<div class="h-80 overflow-hidden">
+								<img 
+									src="/aidencalvin.jpg"
+									alt="Aiden Calvin - CEO & Lemonade Visionary" 
+									class="w-full h-full object-cover"
+									width="400"
+									height="320"
+									loading="lazy"
+									decoding="async"
+								/>
+							</div>
+							<div class="p-6">
+								<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1">Aiden Calvin</h3>
+								<p class="text-lime-600 dark:text-lime-400 font-medium text-sm mb-2">CEO & Lemonade Visionary</p>
+								<p class="text-gray-600 dark:text-gray-400 text-sm mb-3">Pioneering the intersection of citrus and silicon. Claims his neural networks can taste the difference between hand-squeezed and machine-squeezed lemons.</p>
+								<div class="flex gap-4 relative z-10">
+									<a href="https://x.com/aidencalvin" target="_blank" class="text-lime-600 dark:text-lime-400 font-medium text-sm hover:underline flex items-center gap-1 cursor-pointer">
+										<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+											<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+										</svg>
+										Twitter
+									</a>
+									<a href="https://www.twitch.tv/calvinaiden" target="_blank" class="text-lime-600 dark:text-lime-400 font-medium text-sm hover:underline flex items-center gap-1 cursor-pointer">
+										<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+											<path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/>
+										</svg>
+										Twitch
+									</a>
+								</div>
+							</div>
+						</div>
+						
+						<div class="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl relative after:absolute after:inset-0 after:opacity-0 hover:after:opacity-100 after:transition-opacity after:duration-300 after:rounded-2xl after:shadow-[0_0_50px_rgba(52,211,153,0.15)]">
+							<div class="h-80 overflow-hidden">
+								<img 
+									src="/atrioc.jpg"
+									alt="Atrioc - CMO & Meme Strategist" 
+									class="w-full h-full object-cover"
+									width="400"
+									height="320"
+									loading="lazy"
+									decoding="async"
+								/>
+							</div>
+							<div class="p-6">
+								<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1">Atrioc</h3>
+								<p class="text-lime-600 dark:text-lime-400 font-medium text-sm mb-2">CMO & Meme Strategist</p>
+								<p class="text-gray-600 dark:text-gray-400 text-sm mb-3">Former NVIDIA & Twitch exec who traded corporate marketing for computational citrus. Now applies his Silicon Valley expertise to disrupt Big Lemonade.</p>
+								<div class="flex gap-4 relative z-10">
+									<a href="https://x.com/Atrioc" target="_blank" class="text-lime-600 dark:text-lime-400 font-medium text-sm hover:underline flex items-center gap-1 cursor-pointer">
+										<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+											<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+										</svg>
+										Twitter
+									</a>
+									<a href="https://www.twitch.tv/atrioc" target="_blank" class="text-lime-600 dark:text-lime-400 font-medium text-sm hover:underline flex items-center gap-1 cursor-pointer">
+										<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+											<path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/>
+										</svg>
+										Twitch
+									</a>
+								</div>
+							</div>
+						</div>
+						
+						<div class="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl relative after:absolute after:inset-0 after:opacity-0 hover:after:opacity-100 after:transition-opacity after:duration-300 after:rounded-2xl after:shadow-[0_0_50px_rgba(52,211,153,0.15)]">
+							<div class="h-80 overflow-hidden">
+								<img 
+									src="/dougdoug.jpg"
+									alt="DougDoug - CTO & Quantum Lemonade Engineer" 
+									class="w-full h-full object-cover"
+									width="400"
+									height="320"
+									loading="lazy"
+									decoding="async"
+								/>
+							</div>
+							<div class="p-6">
+								<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1">DougDoug</h3>
+								<p class="text-lime-600 dark:text-lime-400 font-medium text-sm mb-2">CTO & Quantum Lemonade Engineer</p>
+								<p class="text-gray-600 dark:text-gray-400 text-sm mb-3">Renowned for solving impossible problems with chaos theory. Currently teaching AI to squeeze lemons using only Dance Dance Revolution pads.</p>
+								<div class="flex gap-4 relative z-10">
+									<a href="https://x.com/DougDougFood" target="_blank" class="text-lime-600 dark:text-lime-400 font-medium text-sm hover:underline flex items-center gap-1 cursor-pointer">
+										<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+											<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+										</svg>
+										Twitter
+									</a>
+									<a href="https://www.twitch.tv/dougdoug" target="_blank" class="text-lime-600 dark:text-lime-400 font-medium text-sm hover:underline flex items-center gap-1 cursor-pointer">
+										<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+											<path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/>
+										</svg>
+										Twitch
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		-->
+
+			<!-- Previous Episodes Section -->
+			{recentEpisodes.length > 0 && (
+				<section class="container max-w-6xl mx-auto px-4 py-16">
+					<div class="flex justify-between items-center mb-10">
+						<h2 class="text-3xl font-bold text-gray-900 dark:text-white">Other Projects</h2>
+						<a href="/projects" class="px-6 py-2 bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-500 bg-size-200 text-white font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">View All →</a>
+					</div>
+					
+					
+					<div class="grid md:grid-cols-2 gap-8">
+						{recentEpisodes.map((episode) => (
+							<article class="bg-white dark:bg-gray-800/50 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col">
+								<div class="relative aspect-video">
+									<a href={`/projects/${episode.slug}/`} class="block">
+										<picture>
+											<source 
+												media="(max-width: 480px)" 
+												srcset={`${episode.data.imgURL}`}
+											/>
+											<source 
+												media="(max-width: 720px)" 
+												srcset={`${episode.data.imgURL}`}
+											/>
+											<img
+												src={`${episode.data.imgURL}`}
+												alt={`Thumbnail for episode ${episode.data.episodeNumber}: ${episode.data.title}`}
+												class="w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-105"
+												loading="lazy"
+											/>
+										</picture>
+										<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-60"></div>
+										<div class="absolute bottom-0 left-0 right-0 p-4">
+											<p class="text-white text-sm font-medium">
+												<FormattedDate date={episode.data.pubDate} />
+											</p>
+										</div>
+									</a>
+								</div>
+								
+								<div class="p-6 flex-1 flex flex-col">
+									<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+										<a href={`/projects/${episode.slug}/`} class="text-gray-900 dark:text-white hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
+											{episode.data.title}
+										</a>
+									</h3>
+									
+									<p class="text-gray-700 dark:text-gray-300 mb-4 flex-1">
+										{episode.data.description}
+									</p>
+									
+									<div class="flex flex-wrap gap-2 mb-4">
+										{episode.data.tags.map((tag) => (
+											<a 
+												href={`/projects?tag=${tag.replace(/ /g, '+')}`}
+												class="tag-badge bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-3 py-1 rounded-full text-xs font-medium hover:bg-lime-100 hover:text-lime-700 dark:hover:bg-lime-900/30 dark:hover:text-lime-300 transition-colors flex items-center gap-1"
+											>
+												<span class="inline-block w-1.5 h-1.5 rounded-full bg-lime-500 dark:bg-lime-400"></span>
+												{tag}
+											</a>
+										))}
+									</div>
+									
+									<a 
+										href={`/projects/${episode.slug}/`} 
+										class="text-lime-600 dark:text-lime-400 font-medium hover:underline flex items-center"
+									>
+										View project 
+										<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+										</svg>
+									</a>
+								</div>
+							</article>
+						))}
+					</div>
+				</section>
+			)}
+
+			<!-- Pricing CTA Section -->
+			<!--
+			<section class="relative py-24 overflow-hidden">
+				{/* Background decoration */}
+				<div class="absolute inset-0 bg-gradient-to-br from-yellow-100 via-lime-50 to-transparent dark:from-yellow-900/20 dark:via-lime-900/10 dark:to-transparent"></div>
+				<div class="absolute -left-40 -bottom-40 w-96 h-96 bg-yellow-200 dark:bg-yellow-900/30 rounded-full filter blur-3xl opacity-50"></div>
+				<div class="absolute -right-40 -top-40 w-96 h-96 bg-lime-200 dark:bg-lime-900/30 rounded-full filter blur-3xl opacity-50"></div>
+				
+				<div class="container max-w-6xl mx-auto px-4 relative">
+					<div class="text-center mb-12">
+						<span class="inline-block px-4 py-1 bg-gradient-to-r from-yellow-100 to-lime-100 dark:from-yellow-900/50 dark:to-lime-900/50 rounded-full text-sm font-medium text-yellow-800 dark:text-yellow-200 mb-4">
+								🚀 LAUNCHING SOON
+						</span>
+						<h2 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
+							Ready to <span class="bg-gradient-to-r from-yellow-400 to-lime-500 text-transparent bg-clip-text">Level Up</span> Your Lemonade Game?
+						</h2>
+						<p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8">
+							Join thousands* of visionaries who have already embraced our AI-powered future. 
+							<span class="text-sm">*Numbers may be hallucinated by our AI</span>
+						</p>
+					</div>
+
+					<div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+							<div class="bg-white dark:bg-gray-800/50 rounded-2xl p-6 text-center transform hover:-translate-y-1 transition-all duration-300">
+								<div class="text-3xl font-bold text-yellow-500 dark:text-yellow-400 mb-2">42,000+</div>
+								<p class="text-gray-600 dark:text-gray-400">Virtual Lemons Squeezed</p>
+							</div>
+							<div class="bg-white dark:bg-gray-800/50 rounded-2xl p-6 text-center transform hover:-translate-y-1 transition-all duration-300">
+								<div class="text-3xl font-bold text-lime-500 dark:text-lime-400 mb-2">$0.00</div>
+								<p class="text-gray-600 dark:text-gray-400">Revenue (We're Pre-Revenue)</p>
+							</div>
+							<div class="bg-white dark:bg-gray-800/50 rounded-2xl p-6 text-center transform hover:-translate-y-1 transition-all duration-300">
+								<div class="text-3xl font-bold text-green-500 dark:text-green-400 mb-2">∞</div>
+								<p class="text-gray-600 dark:text-gray-400">Total Addressable Market</p>
+							</div>
+					</div>
+
+					<div class="flex flex-col items-center gap-6">
+						<a href="/pricing" class="group relative inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-yellow-500 via-lime-500 to-green-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+							View Pricing Plans
+							<svg class="w-5 h-5 transition-transform duration-300 transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+							</svg>
+						</a>
+					</div>
+				</div>
+			</section>
+			-->
+
+		</main>
+		<Footer />
+	</body>
+</html>

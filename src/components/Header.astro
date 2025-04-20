@@ -1,0 +1,154 @@
+---
+import HeaderLink from './HeaderLink.astro';
+import DarkModeToggle from './DarkModeToggle.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+
+<header class="sticky top-0 z-40 w-full backdrop-blur-lg bg-white/80 dark:bg-gray-900/80">
+	<nav class="container mx-auto px-4 py-4">
+
+		<div class="flex items-center justify-between">
+			<a href="/" class="group flex items-center gap-3 transition-transform duration-300 hover:scale-105">
+				<div class="relative">
+						<img 
+							src="/logo.png" 
+							alt="The Lemonade Stand Podcast Logo" 
+							class="w-10 h-10 transform group-hover:rotate-12 transition-transform duration-300"
+							width="40"
+							height="40"
+							loading="eager"
+							decoding="async"
+						>
+					<div class="absolute inset-0 bg-gradient-to-r from-cyan-400 to-pink-400 opacity-0 group-hover:opacity-30 rounded-full blur-xl transition-opacity duration-300"></div>
+				</div>
+				<h2 class="text-xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 bg-clip-text text-transparent animate-gradient-x">
+				</h2>
+			</a>
+
+
+
+			<div class="flex items-center gap-8">
+				<div class="hidden md:flex items-center gap-1">
+					<a href="/" class="nav-link group px-4 py-2 relative">
+						<span class="relative z-10 font-medium text-gray-800 dark:text-gray-200 group-hover:text-pink-500 dark:group-hover:text-pink-400 transition-colors duration-200">
+							Home
+						</span>
+						<div class="absolute inset-0 h-full w-full transform scale-0 group-hover:scale-100 transition-transform duration-200 rounded-lg bg-gray-100 dark:bg-gray-800"></div>
+					</a>
+					<a href="/projects" class="nav-link group px-4 py-2 relative">
+						<span class="relative z-10 font-medium text-gray-800 dark:text-gray-200 group-hover:text-cyan-500 dark:group-hover:text-cyan-400 transition-colors duration-200">
+							Projects
+						</span>
+						<div class="absolute inset-0 h-full w-full transform scale-0 group-hover:scale-100 transition-transform duration-200 rounded-lg bg-gray-100 dark:bg-gray-800"></div>
+					</a>
+					<!--
+					<a href="/about" class="nav-link group px-4 py-2 relative">
+						<span class="relative z-10 font-medium text-gray-800 dark:text-gray-200 group-hover:text-lime-500 dark:group-hover:text-lime-400 transition-colors duration-200">
+							About
+						</span>
+						<div class="absolute inset-0 h-full w-full transform scale-0 group-hover:scale-100 transition-transform duration-200 rounded-lg bg-gray-100 dark:bg-gray-800"></div>
+					</a>
+					<a href="/pricing" class="nav-link group px-4 py-2 relative">
+						<span class="relative z-10 font-medium text-gray-800 dark:text-gray-200 group-hover:text-lime-500 dark:group-hover:text-lime-400 transition-colors duration-200">
+							Pricing
+						</span>
+						<div class="absolute inset-0 h-full w-full transform scale-0 group-hover:scale-100 transition-transform duration-200 rounded-lg bg-gray-100 dark:bg-gray-800"></div>
+					</a>
+					<a href="/links" class="nav-link group px-4 py-2 relative">
+						<span class="relative z-10 font-medium text-gray-800 dark:text-gray-200 group-hover:text-orange-500 dark:group-hover:text-orange-400 transition-colors duration-200">
+							Links
+						</span>
+						<div class="absolute inset-0 h-full w-full transform scale-0 group-hover:scale-100 transition-transform duration-200 rounded-lg bg-gray-100 dark:bg-gray-800"></div>
+					</a>
+					-->
+				</div>
+
+				
+				<!-- Mobile Menu Button -->
+				<button 
+					id="mobile-menu-button"
+					class="md:hidden relative w-10 h-10 text-gray-800 dark:text-gray-200 hover:text-yellow-500 dark:hover:text-yellow-400 transition-colors duration-200"
+				>
+					<div class="absolute inset-0 rounded-lg bg-gray-100 dark:bg-gray-800 transform transition-transform duration-200 menu-bg"></div>
+					<svg xmlns="http://www.w3.org/2000/svg" class="relative z-10 h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+					</svg>
+				</button>
+
+				<DarkModeToggle />
+			</div>
+		</div>
+
+		<!-- Mobile Menu 
+		<div id="mobile-menu" class="md:hidden h-0 overflow-hidden transition-all duration-300">
+			<div class="py-4 space-y-2">
+				<a href="/" class="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:text-yellow-500 dark:hover:text-yellow-400 transition-colors duration-200 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
+					Home
+				</a>
+				<a href="/episodes" class="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:text-lime-500 dark:hover:text-lime-400 transition-colors duration-200 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
+					Episodes
+				</a>
+				<a href="/about" class="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:text-lime-500 dark:hover:text-lime-400 transition-colors duration-200 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
+					About
+				</a>
+				<a href="/pricing" class="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:text-lime-500 dark:hover:text-lime-400 transition-colors duration-200 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
+					Pricing
+				</a>
+				<a href="/links" class="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:text-orange-500 dark:hover:text-orange-400 transition-colors duration-200 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
+					Links
+				</a>
+			</div>
+		</div>
+		
+	</nav>
+</header>
+
+
+<style>
+	@keyframes gradient-x {
+		0% { background-position: 0% 50%; }
+		50% { background-position: 100% 50%; }
+		100% { background-position: 0% 50%; }
+	}
+
+	.animate-gradient-x {
+		background-size: 200% auto;
+		animation: gradient-x 3s linear infinite;
+	}
+
+	.nav-link::after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		width: 0;
+		height: 2px;
+		background: currentColor;
+		transition: all 0.3s ease;
+		transform: translateX(-50%);
+	}
+
+	.nav-link:hover::after {
+		width: 100%;
+	}
+
+	#mobile-menu-button.active .menu-bg {
+		transform: scale(1.5);
+	}
+
+	#mobile-menu.active {
+		height: auto;
+		max-height: 300px;
+	}
+</style>
+
+<script>
+	const mobileMenuButton = document.getElementById('mobile-menu-button');
+	const mobileMenu = document.getElementById('mobile-menu');
+
+	mobileMenuButton?.addEventListener('click', () => {
+		mobileMenuButton.classList.toggle('active');
+		mobileMenu?.classList.toggle('active');
+	});
+</script>

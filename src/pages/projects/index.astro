@@ -1,0 +1,280 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+import { getCollection } from 'astro:content';
+import FormattedDate from '../../components/FormattedDate.astro';
+
+const episodes = await getCollection('projects');
+const sortedEpisodes = episodes.sort((a, b) => b.data.episodeNumber - a.data.episodeNumber);
+const allTags = [...new Set(episodes.flatMap(episode => episode.data.tags))].sort();
+
+// Get the current tag from URL params if available
+const params = new URL(Astro.url).searchParams;
+const currentTag = params.get('tag');
+
+// Initial filtered episodes based on URL params
+const initialFilteredEpisodes = currentTag
+    ? sortedEpisodes.filter(episode => episode.data.tags.includes(currentTag))
+    : sortedEpisodes;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Projects | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+		<style>
+			select {
+				appearance: none;
+				background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+				background-position: right 0.5rem center;
+				background-repeat: no-repeat;
+				background-size: 1.5em 1.5em;
+			}
+			.episode-hidden {
+				display: none;
+				}
+			.tag-badge {
+				@apply inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full transition-colors duration-200 cursor-pointer whitespace-nowrap;
+				@apply bg-gray-100 text-gray-700 hover:bg-lime-100 hover:text-lime-700;
+				@apply dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-lime-900 dark:hover:text-lime-300;
+			}
+
+			.tag-badge.active {
+				@apply bg-lime-500 text-white hover:bg-lime-600;
+				@apply dark:bg-lime-600 dark:text-white dark:hover:bg-lime-700;
+			}
+
+			.tags-container {
+				@apply relative flex gap-2 flex-wrap;
+				max-height: 2.5rem;
+				overflow-y: hidden;
+				mask-image: linear-gradient(to bottom, black calc(100% - 5px), transparent);
+			}
+
+			.tags-container.expanded {
+				max-height: none;
+				mask-image: none;
+			}
+
+			.show-more-tags {
+				@apply text-xs text-lime-600 dark:text-lime-400 hover:text-lime-700 dark:hover:text-lime-300 cursor-pointer font-medium mt-1;
+			}
+
+			.tags-wrapper {
+				@apply flex flex-col;
+			}
+
+			.episode-card-content {
+				@apply flex flex-col min-h-[200px];
+			}
+		</style>
+	</head>
+	<body class="bg-white dark:bg-gray-900">
+		<Header />
+		<main class="container max-w-3xl mx-auto px-6 py-8">
+			<div class="mb-8">
+				<div class="flex justify-between items-center">
+					<h1 class="text-3xl font-bold mb-6" id="episodeTitle">
+						{currentTag ? `Episodes tagged "${currentTag}"` : (<span>All <span class="bg-gradient-to-r from-cyan-400 to-blue-500 text-transparent bg-clip-text">Projects</span></span>)}
+					</h1>
+				</div>
+                
+                <!-- Tag filters -->
+                <div class="relative mb-6 flex gap-2 items-center">
+                    <select
+                        id="tagFilter"
+                        class="w-full md:w-64 px-4 py-2 rounded-lg text-sm font-medium bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-lime-500 dark:focus:ring-lime-400 focus:border-transparent"
+                    >
+                        <option value="all" selected={!currentTag}>
+                            All Tags
+                        </option>
+                        {allTags.map((tag) => (
+                            <option 
+                                value={tag}
+                                selected={currentTag === tag}
+                            >
+                                {tag}
+                            </option>
+                        ))}
+                    </select>
+                    <button
+                        id="resetTagFilter"
+                        class="px-4 py-2 rounded-lg text-sm font-medium bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-200"
+                        style="display: none;"
+                    >
+                        Reset Filter
+                    </button>
+                </div>
+			</div>
+
+			<div class="grid gap-8" id="episodesContainer">
+				{initialFilteredEpisodes.map((episode) => (
+					<article 
+						class="episode-card flex flex-col bg-white dark:bg-gray-800/50 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+						data-tags={episode.data.tags.join(',')}
+					>
+						<div class="relative min-h-[12rem] md:min-h-[16rem] w-full">
+							<a href={`/projects/${episode.slug}/`} class="block h-full w-full">
+								<picture class="block h-full w-full">
+								<source media="(max-width: 480px)" srcset={`${episode.data.imgURL}`} />
+								<source media="(max-width: 720px)" srcset={`${episode.data.imgURL}`} />
+								<img
+									src={`${episode.data.imgURL}`}
+									alt={episode.data.title}
+									class="absolute inset-0 w-full h-full object-cover"
+									loading="lazy"
+								/>
+								</picture>
+								<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-60"></div>
+								<div class="absolute bottom-0 left-0 right-0 p-4">
+									<p class="text-white text-sm font-medium">
+										<FormattedDate date={episode.data.pubDate} />
+									</p>
+								</div>
+							</a>
+						</div>
+						<div class="flex-1 p-6">
+							<div class="episode-card-content">
+								<div class="flex justify-between items-start mb-3">
+									<h3 class="text-xl font-bold text-gray-900 dark:text-gray-50">
+										<a href={`/projects/${episode.slug}/`} class="text-gray-900 dark:text-gray-50 hover:text-lime-600 dark:hover:text-lime-300">
+											#{episode.data.episodeNumber} {episode.data.title}
+										</a>
+									</h3>
+								</div>
+								<p class="text-gray-700 dark:text-gray-300 mb-4">
+									{episode.data.description}
+								</p>
+								<div class="mt-auto">
+									<div class="tags-wrapper" data-episode-id={episode.slug}>
+										<div class="tags-container">
+											{episode.data.tags.map((tag) => (
+												<span 
+													class="tag-badge"
+													data-tag={tag}
+												>
+													<span class="inline-block w-1.5 h-1.5 rounded-full bg-lime-500 dark:bg-lime-400 mr-1"></span>
+													{tag}
+												</span>
+											))}
+										</div>
+										{episode.data.tags.length > 3 && (
+											<button 
+												type="button"
+												class="show-more-tags"
+											>
+												Show more tags
+											</button>
+										)}
+									</div>
+								</div>
+							</div>
+						</div>
+					</article>
+				))}
+			</div>
+		</main>
+		<Footer />
+
+		<script>
+			function filterEpisodes(selectedTag?: string) {
+				const tagFilter = document.getElementById('tagFilter') as HTMLSelectElement;
+				const resetTagFilter = document.getElementById('resetTagFilter') as HTMLButtonElement;
+				const episodeTitle = document.getElementById('episodeTitle');
+				
+				if (!tagFilter || !episodeTitle || !resetTagFilter) return;
+				
+				// Use the provided tag or get it from the select
+				const tagToFilter = selectedTag || tagFilter.value;
+				tagFilter.value = tagToFilter; // Update select if tag was provided
+				
+				const episodes = document.querySelectorAll('.episode-card');
+				
+				episodes.forEach(episode => {
+					const tags = episode.getAttribute('data-tags');
+					if (!tags) return;
+					
+					const episodeTags = tags.split(',');
+					if (tagToFilter === 'all' || episodeTags.includes(tagToFilter)) {
+						episode.classList.remove('episode-hidden');
+					} else {
+						episode.classList.add('episode-hidden');
+					}
+				});
+
+				// Update the title with consistent styling
+				if (tagToFilter === 'all') {
+					episodeTitle.innerHTML = `<span>All <span class="bg-gradient-to-r from-cyan-400 to-blue-500 text-transparent bg-clip-text">Projects</span></span>`;
+					resetTagFilter.style.display = 'none';
+				} else {
+					episodeTitle.innerHTML = `Projects tagged "<span class="bg-gradient-to-r from-cyan-400 to-blue-500 text-transparent bg-clip-text">${tagToFilter}</span>"`;
+					resetTagFilter.style.display = 'inline-block';
+				}
+
+				// Update URL without page reload
+				const url = new URL(window.location.href);
+				if (tagToFilter === 'all') {
+					url.searchParams.delete('tag');
+				} else {
+					url.searchParams.set('tag', tagToFilter);
+				}
+				window.history.pushState({}, '', url.toString());
+			}
+
+			// Initialize page with URL params
+			document.addEventListener('DOMContentLoaded', () => {
+				const params = new URLSearchParams(window.location.search);
+				const tag = params.get('tag');
+				if (tag) {
+					filterEpisodes(tag);
+				}
+			});
+
+			// Handle tag clicks for filtering
+			document.querySelectorAll('.tag-badge').forEach(tag => {
+				tag.addEventListener('click', (e) => {
+					const target = e.currentTarget as HTMLElement;
+					const selectedTag = target.getAttribute('data-tag');
+					if (selectedTag) {
+						filterEpisodes(selectedTag);
+					}
+				});
+			});
+
+			 // Handle show more tags buttons
+			document.querySelectorAll('.show-more-tags').forEach(button => {
+				button.addEventListener('click', (e) => {
+					const target = e.currentTarget as HTMLButtonElement;
+					const wrapper = target.closest('.tags-wrapper');
+					if (wrapper) {
+						const container = wrapper.querySelector('.tags-container');
+						container?.classList.toggle('expanded');
+						target.textContent = container?.classList.contains('expanded') ? 'Show less tags' : 'Show more tags';
+					}
+				});
+			});
+
+			// Set up event listener for tag filter dropdown
+			const tagFilter = document.getElementById('tagFilter');
+			tagFilter?.addEventListener('change', () => {
+				const select = tagFilter as HTMLSelectElement;
+				filterEpisodes(select.value);
+			});
+
+			 // Set up event listener for reset button
+			const resetTagFilter = document.getElementById('resetTagFilter');
+			resetTagFilter?.addEventListener('click', () => {
+				filterEpisodes('all');
+			});
+
+			// Handle browser back/forward buttons
+			window.addEventListener('popstate', () => {
+				const params = new URLSearchParams(window.location.search);
+				const tag = params.get('tag') || 'all';
+				filterEpisodes(tag);
+			});
+		</script>
+	</body>
+</html>

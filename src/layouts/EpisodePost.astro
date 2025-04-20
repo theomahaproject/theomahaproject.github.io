@@ -1,0 +1,234 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import ShareButtons from '../components/ShareButtons.astro';
+import { getCollection } from 'astro:content';
+
+type Props = CollectionEntry<'episodes'>;
+
+const { data, slug } = Astro.props;
+const { episodeNumber, title, description, longDescription, pubDate, tags, youtubeId, imgURL, imgLink, aiDiscussion } = data;
+
+// Get all episodes and sort them by episode number
+const allEpisodes = await getCollection('episodes');
+const sortedEpisodes = allEpisodes.sort((a, b) => b.data.episodeNumber - a.data.episodeNumber);
+
+// Find current episode index
+const currentIndex = sortedEpisodes.findIndex(episode => episode.slug === slug);
+
+// Get previous and next episodes
+const previousEpisode = currentIndex < sortedEpisodes.length - 1 ? sortedEpisodes[currentIndex + 1] : null;
+const nextEpisode = currentIndex > 0 ? sortedEpisodes[currentIndex - 1] : null;
+
+// Enhanced structured data for podcast episode
+const episodeSchema = {
+	"@context": "https://schema.org",
+	"@type": "PodcastEpisode",
+	"episodeNumber": episodeNumber,
+	"name": title,
+	"description": description,
+	"longDescription": longDescription,
+	"datePublished": pubDate.toISOString(),
+	"keywords": tags.join(','),
+	"url": Astro.url,
+	"partOfSeries": {
+		"@type": "PodcastSeries",
+		"name": "The Lemonade Stand Podcast",
+		"url": new URL('/', Astro.url)
+	},
+	"video": {
+		"@type": "VideoObject",
+		"name": title,
+		"description": description,
+		"thumbnailUrl": `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`,
+		"uploadDate": pubDate.toISOString(),
+		"embedUrl": `https://www.youtube.com/embed/${youtubeId}`
+	}
+};
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead 
+			title={title} 
+			description={description}
+			youtubeId={youtubeId}
+			imgURL={imgURL}
+			imgLink={imgLink}
+			ogType="article"
+			publishDate={pubDate}
+			tags={tags}
+		/>
+		<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+		<script type="application/ld+json" set:html={JSON.stringify(episodeSchema)} />
+		<script>
+			import Plyr from 'plyr';
+			document.addEventListener('DOMContentLoaded', () => {
+				const player = new Plyr('#audio-player', {
+					controls: [
+						'play',
+						'progress',
+						'current-time',
+						'mute',
+						'volume',
+						'settings'
+					],
+					settings: ['speed'],
+					speed: {
+						selected: 1,
+						options: [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2]
+					}
+				});
+			});
+		</script>
+	</head>
+
+	<body class="bg-white dark:bg-gray-900">
+		<Header />
+		<main class="container max-w-3xl mx-auto px-6 py-8">
+			<article class="bg-gradient-to-br from-yellow-50 to-lime-50 dark:from-gray-800/50 dark:to-gray-700/50 rounded-2xl overflow-hidden">
+				<div class="aspect-video w-full">
+					<a href={`${imgLink}`}><img src={`${imgURL}`}></a>
+				</div>
+				
+				<!--
+				<div class="aspect-video w-full">
+					<a href={`${imgLink}`}><img src={`${imgURL}`}></a>
+					<!--
+					<iframe
+						class="w-full h-full"
+						src={`https://www.youtube.com/embed/${youtubeId}`}
+						title={title}
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen
+						loading="lazy"
+					></iframe>
+					-->
+				</div>
+				
+
+				<div class="p-6 md:p-8">
+					<div class="mb-6">
+						<div class="flex flex-wrap items-center gap-4 mb-4">
+							<!--
+							<span class="bg-gradient-to-r from-yellow-500 via-lime-500 to-green-500 text-white px-4 py-1 rounded-full text-sm font-semibold">
+								Episode #{episodeNumber}
+							</span>
+							-->
+							<span class="text-yellow-600 dark:text-yellow-400 font-medium">
+								Published on <FormattedDate date={pubDate} />
+							</span>
+						</div>
+						<h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">{title}</h1>
+						<p class="text-lg text-gray-700 dark:text-gray-300">{description}</p>
+						<br>
+						<p class="text-lg text-gray-700 dark:text-gray-300">{longDescription}</p>
+					</div>
+
+
+					<div class="prose prose-lg max-w-none mb-4 dark:prose-invert">
+						<slot />
+					</div>
+						<!--
+						{aiDiscussion && (
+							<div class="pt-4">
+								<h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">AI Overview</h2>
+								<p>This is a "deep dive" podcast style overview of the episode. It was generated using AI and is meant to provide a quick summary of the episode's content.</p>
+								<br />
+								<div class="flex flex-col gap-4">
+									<audio
+										id="audio-player"
+										crossorigin
+										playsinline
+									>
+										<source src={aiDiscussion} type="audio/wav" />
+									</audio>
+									<div class="flex items-center gap-2 text-sm">
+										<a 
+											href={aiDiscussion}
+											download
+											class="inline-flex items-center gap-1.5 text-gray-600 hover:text-white dark:text-gray-400 dark:hover:text-white transition-colors hover:bg-lime-600 dark:hover:bg-lime-600 rounded px-2 py-1"
+										>
+											<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+												<path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+											</svg>
+											Download audio
+										</a>
+									</div>
+								</div>
+								<p class="mt-4 text-sm text-gray-600 dark:text-gray-400">Note: This AI overview was generated using <a href="https://notebooklm.google/" class="text-lime-600 dark:text-lime-400 hover:underline" target="_blank" rel="noopener noreferrer">Google's NotebookLM</a>. The content may contain inaccuracies.</p>
+							</div>
+						)}
+						-->
+
+					{data.citations && data.citations.length > 0 && (
+						<div class="pt-4">
+							<h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">Sources & References</h2>
+							<ul class="space-y-2">
+								{data.citations.map((citation) => (
+									<li>
+										<a
+											href={citation.url}
+											target="_blank"
+											rel="noopener noreferrer"
+											class="text-lime-600 dark:text-lime-400 font-medium flex items-center hover:text-lime-800 dark:hover:text-lime-300 transition-colors"
+										>
+											<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+											</svg>
+											{citation.title}
+										</a>
+									</li>
+								))}
+							</ul>
+						</div>
+					)}
+
+					<div class="pt-6">
+						<h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">Tags</h2>
+						<div class="flex flex-wrap gap-2">
+								{tags.map((tag) => (
+								<a
+									href={`/episodes?tag=${tag.replace(/ /g, '+')}`}
+									class="bg-gradient-to-r from-yellow-100 to-lime-100 dark:from-yellow-900/30 dark:to-lime-900/30 text-yellow-800 dark:text-yellow-300 px-4 py-1 rounded-full text-sm font-medium hover:bg-yellow-200 dark:hover:bg-yellow-800/50 transition-colors flex items-center gap-1"
+								>
+									<span class="inline-block w-2 h-2 rounded-full bg-yellow-500 dark:bg-yellow-400"></span>
+									{tag}
+								</a>
+							))}
+						</div>
+					</div>
+
+					<br>
+					<div class="mt-4">
+						<ShareButtons title={title} url={`/episodes/${slug}`} />
+					</div>
+				</div>
+			</article>
+
+			<div class="mt-8 flex justify-between items-center gap-3">
+				{previousEpisode && (
+					<a href={`/episodes/${previousEpisode.slug}/`} class="group inline-flex items-center gap-2 bg-gradient-to-r from-yellow-500 via-lime-500 to-green-500 text-white px-4 py-3 rounded-xl font-medium hover:shadow-lg max-w-[45%] transition-all duration-300">
+						<svg class="w-5 h-5 flex-shrink-0 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+						</svg>
+						<span class="line-clamp-1 min-w-0">#{previousEpisode.data.episodeNumber} {previousEpisode.data.title}</span>
+					</a>
+				)}
+				{nextEpisode && (
+					<a href={`/episodes/${nextEpisode.slug}/`} class="group inline-flex items-center justify-end gap-2 bg-gradient-to-r from-yellow-500 via-lime-500 to-green-500 text-white px-4 py-3 rounded-xl font-medium hover:shadow-lg max-w-[45%] transition-all duration-300">
+						<span class="line-clamp-1 min-w-0">#{nextEpisode.data.episodeNumber} {nextEpisode.data.title}</span>
+						<svg class="w-5 h-5 flex-shrink-0 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+						</svg>
+					</a>
+				)}
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>

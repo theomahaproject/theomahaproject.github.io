@@ -1,0 +1,248 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Pricing | ${SITE_TITLE}`} description="Choose your perfect AI-powered subscription tier. Warning: May contain actual lemons." />
+		<style>
+			.pricing-card {
+				transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+				position: relative;
+				overflow: hidden;
+				animation: fadeInUp 0.8s ease-out backwards;
+			}
+
+			.pricing-card:nth-child(2) {
+				animation-delay: 0.2s;
+			}
+
+			.pricing-card:nth-child(3) {
+				animation-delay: 0.4s;
+			}
+
+			.pricing-card:hover {
+				transform: translateY(-10px);
+				box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+			}
+
+			.pricing-card::before {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(45deg, rgba(255,209,102,0.1), rgba(0,137,76,0.1));
+				opacity: 0;
+				transition: opacity 0.3s ease;
+				pointer-events: none; /* Allow clicking through the overlay */
+			}
+
+			.pricing-card > * {
+				position: relative;
+				z-index: 1;
+			}
+
+			@keyframes float {
+				0%, 100% { transform: translateY(0px) rotate(0deg); }
+				50% { transform: translateY(-8px) rotate(5deg); }
+			}
+
+			@keyframes fadeInUp {
+				from {
+					opacity: 0;
+					transform: translateY(20px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			@keyframes pulse {
+				0%, 100% { transform: scale(1); }
+				50% { transform: scale(1.05); }
+			}
+
+			@keyframes shimmer {
+				0% { background-position: -200% center; }
+				100% { background-position: 200% center; }
+			}
+
+			.floating-icon {
+				animation: float 3s ease-in-out infinite;
+				display: inline-block;
+			}
+
+			.gradient-button {
+				background-size: 200% auto;
+				animation: shimmer 3s linear infinite;
+				position: relative;
+				z-index: 1;
+			}
+
+			.popular-badge {
+				animation: pulse 2s infinite;
+			}
+
+			.pricing-feature {
+				opacity: 0;
+				animation: fadeInUp 0.5s ease forwards;
+			}
+
+			.pricing-card:hover .pricing-feature {
+				animation-play-state: running;
+			}
+
+			/* Applying animations to features with delays */
+			.pricing-feature:nth-child(1) { animation-delay: 0.1s; }
+			.pricing-feature:nth-child(2) { animation-delay: 0.2s; }
+			.pricing-feature:nth-child(3) { animation-delay: 0.3s; }
+			.pricing-feature:nth-child(4) { animation-delay: 0.4s; }
+		</style>
+	</head>
+	<body class="bg-white dark:bg-gray-900">
+		<Header />
+		<main class="container max-w-6xl mx-auto px-4 py-16">
+			<div class="text-center mb-16">
+				<h1 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
+					Choose Your <span class="bg-gradient-to-r from-yellow-400 to-lime-500 text-transparent bg-clip-text">Lemon-ary</span> Patreon Plan
+				</h1>
+				<p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+					Warning: Our AI occasionally hallucinates and thinks it's running a real lemonade stand.
+				</p>
+			</div>
+
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+				<!-- Free Tier -->
+				<div class="pricing-card bg-white dark:bg-gray-800 rounded-2xl p-8 border-2 border-gray-200 dark:border-gray-700">
+					<div class="flex items-center justify-center mb-4">
+						<span class="text-4xl floating-icon">🍋</span>
+					</div>
+					<h2 class="text-2xl font-bold text-center text-gray-900 dark:text-white mb-4">Free</h2>
+					<div class="text-center mb-6">
+						<span class="text-4xl font-bold text-gray-900 dark:text-white">$0</span>
+						<span class="text-gray-600 dark:text-gray-400">/month</span>
+					</div>
+					<ul class="space-y-4 mb-8">
+						<li class="pricing-feature flex items-center text-gray-600 dark:text-gray-400">
+							<span class="mr-2">✓</span> Get updates on new public episodes
+						</li>
+						<li class="pricing-feature flex items-center text-gray-600 dark:text-gray-400">
+							<span class="mr-2">✓</span> Access to free exclusive posts
+						</li>
+					</ul>
+					<a href="https://www.patreon.com/c/lemonadestand" class="gradient-button w-full px-6 py-3 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-xl font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors inline-block text-center">
+						Listen Free
+					</a>
+				</div>
+
+				<!-- Zest Tier -->
+				<div class="pricing-card bg-gradient-to-br from-yellow-50 to-lime-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-8 border-2 border-yellow-400 dark:border-lime-600 transform scale-105">
+					<div class="absolute top-4 right-4">
+						<span class="popular-badge bg-gradient-to-r from-yellow-400 to-lime-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+							MOST POPULAR
+						</span>
+					</div>
+					<div class="flex items-center justify-center mb-4">
+						<span class="text-4xl floating-icon">🌟</span>
+					</div>
+					<h2 class="text-2xl font-bold text-center text-gray-900 dark:text-white mb-4">Zest</h2>
+					<div class="text-center mb-6">
+						<span class="text-4xl font-bold text-gray-900 dark:text-white">$5</span>
+						<span class="text-gray-600 dark:text-gray-400">/month</span>
+					</div>
+					<ul class="space-y-4 mb-8">
+						<li class="pricing-feature flex items-center text-gray-600 dark:text-gray-400">
+							<span class="mr-2">✓</span> BONUS EPISODE: Extra hour of fresh squeezed content weekly
+						</li>
+						<li class="pricing-feature flex items-center text-gray-600 dark:text-gray-400">
+							<span class="mr-2">✓</span> Discord Community Access
+						</li>
+						<li class="pricing-feature flex items-center text-gray-600 dark:text-gray-400">
+							<span class="mr-2">✓</span> Suggest topics and share articles
+						</li>
+						<li class="pricing-feature flex items-center text-gray-600 dark:text-gray-400">
+							<span class="mr-2">✓</span> Direct engagement with hosts
+						</li>
+						<li class="pricing-feature flex items-center text-gray-600 dark:text-gray-400">
+							<span class="mr-2">✓</span> Give feedback on existing episodes
+						</li>
+					</ul>
+					<a href="https://www.patreon.com/c/lemonadestand" class="gradient-button w-full px-6 py-3 bg-gradient-to-r from-yellow-500 via-lime-500 to-green-500 text-white rounded-xl font-medium hover:shadow-lg transition-all duration-300 inline-block text-center">
+						Join Zest
+					</a>
+				</div>
+
+				<!-- Juice Tier -->
+				<div class="pricing-card bg-white dark:bg-gray-800 rounded-2xl p-8 border-2 border-gray-200 dark:border-gray-700">
+					<div class="flex items-center justify-center mb-4">
+						<span class="text-4xl floating-icon">💎</span>
+					</div>
+					<h2 class="text-2xl font-bold text-center text-gray-900 dark:text-white mb-4">Juice</h2>
+					<div class="text-center mb-6">
+						<span class="text-4xl font-bold text-gray-900 dark:text-white">$15</span>
+						<span class="text-gray-600 dark:text-gray-400">/month</span>
+					</div>
+					<ul class="space-y-4 mb-8">
+						<li class="pricing-feature flex items-center text-gray-600 dark:text-gray-400">
+							<span class="mr-2">✓</span> Everything in Zest tier
+						</li>
+						<li class="pricing-feature flex items-center text-gray-600 dark:text-gray-400">
+							<span class="mr-2">✓</span> Monthly Book Club & Discussion
+						</li>
+						<li class="pricing-feature flex items-center text-gray-600 dark:text-gray-400">
+							<span class="mr-2">✓</span> Extra book club episode monthly
+						</li>
+						<li class="pricing-feature flex items-center text-gray-600 dark:text-gray-400">
+							<span class="mr-2">✓</span> Participate in book discussions
+						</li>
+						<li class="pricing-feature flex items-center text-gray-600 dark:text-gray-400">
+							<span class="mr-2">✓</span> Suggest books for book club
+						</li>
+						<li class="pricing-feature flex items-center text-gray-600 dark:text-gray-400">
+							<span class="mr-2">✓</span> Year of Kindness video responses
+						</li>
+						<li class="pricing-feature flex items-center text-gray-600 dark:text-gray-400">
+							<span class="mr-2">✓</span> Movie club watch-alongs
+						</li>
+						<li class="pricing-feature flex items-center text-gray-600 dark:text-gray-400">
+							<span class="mr-2">✓</span> Movie follow-up episodes
+						</li>
+					</ul>
+					<a href="https://www.patreon.com/c/lemonadestand" class="gradient-button w-full px-6 py-3 border-2 border-lime-500 dark:border-lime-400 text-lime-500 dark:text-lime-400 rounded-xl font-medium hover:bg-lime-50 dark:hover:bg-lime-950 transition-colors inline-block text-center">
+						Get Full Access
+					</a>
+				</div>
+			</div>
+
+			<!-- FAQ Section -->
+			<div class="mt-24">
+				<h2 class="text-3xl font-bold text-center text-gray-900 dark:text-white mb-12">
+					Frequently Asked <span class="bg-gradient-to-r from-yellow-400 to-lime-500 text-transparent bg-clip-text">Questions</span>
+				</h2>
+				<div class="grid gap-8 max-w-3xl mx-auto">
+					<div class="bg-white dark:bg-gray-800 rounded-xl p-6">
+						<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">What's included in the bonus episodes?</h3>
+						<p class="text-gray-600 dark:text-gray-400">Each bonus episode gives you a whole extra hour of fresh squeezed Lemonade Stand content weekly, including continued discussions, new topics, and comment responses!</p>
+					</div>
+					<div class="bg-white dark:bg-gray-800 rounded-xl p-6">
+						<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">How does the Book Club work?</h3>
+						<p class="text-gray-600 dark:text-gray-400">Each month we read a selected book together. You'll get an extra book club episode, can participate in the discussions, and even suggest future books for the club!</p>
+					</div>
+					<div class="bg-white dark:bg-gray-800 rounded-xl p-6">
+						<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">What is the Year of Kindness?</h3>
+						<p class="text-gray-600 dark:text-gray-400">Twice a month, one of our hosts will record video responses to particularly mean comments, turning negativity into a positive learning experience for everyone.</p>
+					</div>
+					<div class="bg-white dark:bg-gray-800 rounded-xl p-6">
+						<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">How do movie watch-alongs work?</h3>
+						<p class="text-gray-600 dark:text-gray-400">Join us for synchronized watching of movies and documentaries, followed by dedicated episodes discussing the film with the community!</p>
+					</div>
+				</div>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
