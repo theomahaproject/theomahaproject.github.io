@@ -12,4 +12,13 @@ export default defineConfig({
 		sitemap(),
 		tailwind()
 	],
+	vite: {
+		build: {
+		  rollupOptions: {
+			input: {
+			  '.nojekyll': '',
+			},
+		  },
+		},
+	  },
 });
