@@ -6,7 +6,7 @@ pubDate: 2022-11-01
 youtubeId: "HOYy_jmzUSg"
 imgURL: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2176940/ss_b7811b9e39e7b8015c24fe4dd2a48c1bc950398a.600x338.jpg"
 imgLink: "https://store.steampowered.com/app/2176940/Walk_While_My_Grandmother_Plays_The_Piano/"
-episodeNumber: 2
+episodeNumber: 3
 summary: ""
 aiDiscussion: "/audio/AI Open Source, Vienna Housing_ A Discussion.wav"
 tags:

@@ -6,7 +6,7 @@ pubDate: 2023-01-01
 youtubeId: "HOYy_jmzUSg"
 imgURL: "../../../galeforce.png"
 imgLink: "https://github.com/theomahaproject/Galeforce"
-episodeNumber: 3
+episodeNumber: 4
 summary: ""
 aiDiscussion: "/audio/AI Open Source, Vienna Housing_ A Discussion.wav"
 tags:

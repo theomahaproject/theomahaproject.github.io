@@ -6,7 +6,7 @@ pubDate: 2022-11-15
 youtubeId: "HOYy_jmzUSg"
 imgURL: "../../../simswap.png"
 imgLink: "https://www.youtube.com/watch?v=OezPOO4yLtw"
-episodeNumber: 1
+episodeNumber: 2
 summary: ""
 aiDiscussion: "/audio/AI Open Source, Vienna Housing_ A Discussion.wav"
 tags:
