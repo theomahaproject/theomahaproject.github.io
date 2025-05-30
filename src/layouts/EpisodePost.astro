@@ -31,7 +31,7 @@ const episodeSchema = {
 	"name": title,
 	"description": description,
 	"longDescription": longDescription,
-	"datePublished": pubDate.toISOString(),
+    "datePublished": new Date(pubDate).toISOString(),
 	"keywords": tags.join(','),
 	"url": Astro.url,
 	"partOfSeries": {
@@ -44,7 +44,7 @@ const episodeSchema = {
 		"name": title,
 		"description": description,
 		"thumbnailUrl": `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`,
-		"uploadDate": pubDate.toISOString(),
+      	"uploadDate": new Date(pubDate).toISOString(),
 		"embedUrl": `https://www.youtube.com/embed/${youtubeId}`
 	}
 };
