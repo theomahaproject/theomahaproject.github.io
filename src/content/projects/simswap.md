@@ -13,5 +13,8 @@ tags:
   - "Offsec"
   - "Hacking"
   - "Research"
+citations:
+  - title: "YouTube - SMS-based MFA isn't keeping you safe"
+    url: "https://www.youtube.com/watch?v=OezPOO4yLtw"
 ---
 

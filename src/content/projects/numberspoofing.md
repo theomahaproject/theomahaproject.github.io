@@ -6,12 +6,15 @@ pubDate: 2025-02-06
 youtubeId: "HOYy_jmzUSg"
 imgURL: "../../../numberspoofing.png"
 imgLink: "https://7news.com.au/news/sms-and-call-spoofing-and-deepfakes-cyber-experts-sound-alarm-over-sophisticated-scams-and-offer-tips-on-how-to-not-be-tricked--c-17635225"
-episodeNumber: 5
+episodeNumber: 6
 summary: ""
 aiDiscussion: "/audio/AI Open Source, Vienna Housing_ A Discussion.wav"
 tags:
   - "Offsec"
   - "Hacking"
   - "Research"
+citations:
+  - title: "Channel 7: SMS and call spoofing and deepfakes"
+    url: "https://7news.com.au/news/sms-and-call-spoofing-and-deepfakes-cyber-experts-sound-alarm-over-sophisticated-scams-and-offer-tips-on-how-to-not-be-tricked--c-17635225"
 ---
 

@@ -13,5 +13,8 @@ tags:
   - "Offsec"
   - "Hacking"
   - "Research"
+citations:
+  - title: "DailyMail: Scammers using AI and imitating trusted phone numbers"
+    url: "https://www.dailymail.co.uk/news/article-12256185/60-Minutes-reporter-Amelia-Adams-uses-AI-technology-replicate-voice-scam-colleague.html"
 ---
 
