@@ -115,7 +115,7 @@ const socialImage = youtubeId
 		}
 	],
 	...(publishDate && {
-		"datePublished": publishDate.toISOString(),
+		"datePublished": new Date(publishDate).toISOString(),
 	}),
 	"publisher": {
 		"@type": "Organization",
@@ -134,12 +134,12 @@ const socialImage = youtubeId
 <!-- Additional SEO Meta Tags -->
 <meta name="robots" content="index, follow" />
 <meta name="author" content={`${HOSTS.aiden.twitter}, ${HOSTS.atrioc.twitter}, ${HOSTS.dougdoug.twitter}`} />
-{publishDate && <meta name="date" content={publishDate.toISOString()} />}
+{publishDate && <meta name="date" content={new Date(publishDate).toISOString()} />}
 
 <!-- Additional Open Graph Tags -->
 <meta property="og:site_name" content="The Lemonade Stand Podcast" />
 <meta property="og:locale" content="en_US" />
-{publishDate && <meta property="article:published_time" content={publishDate.toISOString()} />}
+{publishDate && <meta property="article:published_time" content={new Date(publishDate).toISOString()} />}
 {tags.length > 0 && <meta property="article:tag" content={tags.join(',')} />}
 
 <!-- Cache Control -->
